@@ -1,7 +1,12 @@
 import rpicam_stream
 import cv2
+import sys
 
-rpicam = rpicam_stream.Rpicam('192.168.0.7',8000)
+tcp_ip = sys.argv[1]
+tcp_port = int(sys.argv[2])
+
+rpicam = rpicam_stream.Rpicam(tcp_ip, tcp_port)
+
 while(1):
     image = rpicam.read()
     while(not rpicam.correct):

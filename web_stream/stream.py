@@ -2,6 +2,7 @@ import io
 import picamera
 import logging
 import socketserver
+import sys
 from threading import Condition
 from http import server
 
@@ -10,8 +11,8 @@ PAGE="""\
 <head>
 <title>Personal Navigator View</title>
 <style>
-body { border:0px; margin:10px;}
-img { border:0px; margin:100px; width:100%; height:100%; }
+body { border:0px; margin:0px;}
+img { border:0px; margin:0px; width:100%; height:100%; }
 </style>
 </head>
 <body>
@@ -86,8 +87,9 @@ def read_tcp_info():
         tcp_port = int(f.readline())
     return tcp_address, tcp_port
 
-with picamera.PiCamera(resolution='512x512', framerate=60) as camera:
-    tcp_address, tcp_port = read_tcp_info()
+with picamera.PiCamera(resolution='640x480', framerate=30) as camera:
+    #tcp_address, tcp_port = read_tcp_info()
+    tcp_address, tcp_port = sys.argv[1], int(sys.argv[2])
     output = StreamingOutput()
     #Uncomment the next line to change your Pi's Camera rotation (in degrees)
     #camera.rotation = 90
