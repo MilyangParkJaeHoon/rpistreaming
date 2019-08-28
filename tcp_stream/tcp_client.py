@@ -16,11 +16,14 @@ rpicam = rpicam_stream.Rpicam(tcp_ip, tcp_port)
 
 while True:
     send_time, frame = rpicam.read()
-    total_time += time.time() - send_time
+
     if(rpicam.status == False):
         print('Can not read image')
         break
+    
     frame_count += 1
+    total_time += time.time() - send_time + 1
+
     if(show_on):
         opencvImage = cv2.cvtColor(numpy.array(frame), cv2.COLOR_RGB2BGR)
         cv2.imshow('image',opencvImage)
@@ -30,8 +33,9 @@ while True:
 
     time_gap = time.time()-start_time
     if(time_gap > 1):
-        print('avg transport time : ',total_time/frame_count)
-        print('fps : ',frame_count/time_gap)
+        #print('avg transport time :\t',total_time/frame_count)
+        print('fps :\t\t\t',frame_count/time_gap)
+        print('--------------------\n')
         start_time = time.time()
         frame_count = 0
         total_time = 0
