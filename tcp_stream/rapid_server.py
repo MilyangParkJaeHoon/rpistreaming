@@ -20,10 +20,10 @@ class SplitFrames(object):
             # Start of new frame; send the old one's length
             # then the data
             size = self.stream.tell()
-            now_time = time.time()
+            #now_time = time.time()
             if size > 0:
-                self.connection.write(struct.pack('<d', now_time))
-                self.connection.flush()
+                #self.connection.write(struct.pack('<d', now_time))
+                #self.connection.flush()
                 self.connection.write(struct.pack('<L', size))
                 self.connection.flush()
                 self.stream.seek(0)

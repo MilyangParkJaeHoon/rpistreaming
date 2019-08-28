@@ -12,7 +12,7 @@ class Rpicam(object):
         self.status = False
 
     def read(self):
-        send_time = struct.unpack('<d', self.connection.read(struct.calcsize('<d')))[0]
+        #send_time = struct.unpack('<d', self.connection.read(struct.calcsize('<d')))[0]
         # print('transport time : ',time.time() - send_time)
         image_len = struct.unpack('<L', self.connection.read(struct.calcsize('<L')))[0]
         if not image_len:
@@ -24,4 +24,4 @@ class Rpicam(object):
         image_stream.write(self.connection.read(image_len))
         image_stream.seek(0)
         image = Image.open(image_stream)
-        return send_time, image
+        return image

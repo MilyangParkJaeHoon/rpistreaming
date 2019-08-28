@@ -10,19 +10,19 @@ show_on = int(sys.argv[3])
 
 start_time = time.time()
 frame_count = 0
-total_time = 0
 
 rpicam = rpicam_stream.Rpicam(tcp_ip, tcp_port)
 
 while True:
-    send_time, frame = rpicam.read()
+    frame = rpicam.read()
 
     if(rpicam.status == False):
         print('Can not read image')
         break
     
     frame_count += 1
-    total_time += time.time() - send_time + 1
+
+    print('frame : ', frame)
 
     if(show_on):
         opencvImage = cv2.cvtColor(numpy.array(frame), cv2.COLOR_RGB2BGR)
@@ -38,7 +38,6 @@ while True:
         print('--------------------\n')
         start_time = time.time()
         frame_count = 0
-        total_time = 0
 
 self.connection.close()
 self.client_socket.close()
